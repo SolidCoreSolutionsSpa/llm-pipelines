@@ -1,6 +1,5 @@
-# app/schemas/openai_schemas.py
 from pydantic import BaseModel
-from typing import List, Dict, Optional, Union
+from typing import Optional, Union
 
 
 class TextGenerationRequest(BaseModel):
@@ -9,6 +8,6 @@ class TextGenerationRequest(BaseModel):
     min_similarity: Optional[float] = 0.8
 
 class TextGenerationResponse(BaseModel):
-    receta: RecipeResponse
-    product_ids: List[Union[List[int], None]] 
+    # receta: RecipeResponse
+    product_ids: list[int | None]
 

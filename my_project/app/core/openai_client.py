@@ -1,9 +1,8 @@
-# app/core/openai_client.py
 import openai
-import json
 from app.config import settings
 from app.utils.openai_utils import match_entities, load_entities, process_and_save_embeddings
 from fastapi import HTTPException
+from app.core.config.logger import logger
 
 class OpenAIClient:
     def __init__(self, entity_type: str):
@@ -26,7 +25,7 @@ class OpenAIClient:
                 max_tokens=max_tokens
             )
             generated_text = response.choices[0].message.content
-            print("Generated Text:", generated_text)  # Depuración: Imprimir el texto generado
+            logger.info("Generated Text:", generated_text)  # Depuración: Imprimir el texto generado
         except Exception as e:
-            print(f"OpenAI API Error: {e}")
+            logger.error(f"OpenAI API Error: {e}")
             raise HTTPException(status_code=400, detail=f"OpenAI API Error: {e}")
