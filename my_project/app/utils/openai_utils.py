@@ -1,10 +1,9 @@
-# app/utils/embedding_manager.py
 import openai
 import json
 import numpy as np
 import requests
 from app.config import settings
-from typing import List, Dict
+from app.core.config.logger import logger
 
 openai.api_key = settings.OPENAI_API_KEY
 EMBEDDING_ENDPOINT = "https://api.openai.com/v1/embeddings"
@@ -30,7 +29,7 @@ class EmbeddingManager:
         if 'data' in response_data:
             return response_data['data'][0]['embedding']
         else:
-            print(f"Error en la respuesta de embeddings: {response_data}")
+            logger.info(f"Error en la respuesta de embeddings: {response_data}")
             raise ValueError(f"Error en la respuesta de embeddings: {response_data}")
 
     def get_entities_embeddings(self, entities):
@@ -50,18 +49,15 @@ class EmbeddingManager:
             similarities = {entity_id: self.cosine_similarity(query_embedding, entity_embedding) 
                             for entity_id, entity_embedding in entity_embeddings.items()}
             
-            # Filtrar entidades que cumplen con el umbral de similitud mínima y ordenar por similitud
             matching = sorted(
                 [(entity_id, similarity) for entity_id, similarity in similarities.items() if similarity >= min_similarity],
                 key=lambda item: item[1],
                 reverse=True
             )
             
-            # Tomar las 3 entidades más similares
             top_matching = [entity_id for entity_id, similarity in matching[:3]]
-            
-            # Imprimir el resultado de la similitud para cada consulta
-            print(f"Consulta: {query}, Entidades coincidentes: {top_matching}")
+
+            logger.info(f"Consulta: {query}, Entidades coincidentes: {top_matching}")
             
             if top_matching:
                 matching_entities.append(top_matching)
