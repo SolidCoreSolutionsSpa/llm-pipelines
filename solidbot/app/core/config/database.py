@@ -1,14 +1,18 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, declarative_base
-from solidbot.app.core.config.settings import settings
+from app.core.config.settings import settings
 from functools import lru_cache
 from typing import AsyncGenerator
 
 Base = declarative_base()
 
 @lru_cache()
-def create_engine(database_url: str = settings.DATABASE_URL):
-    return create_async_engine(settings.DATABASE_URL, echo=True)
+def create_engine():
+    # Use asyncpg as the driver
+    return create_async_engine(
+        settings.DATABASE_URL_STR.replace("postgresql://", "postgresql+asyncpg://"),
+        echo=True
+    )
 
 @lru_cache()
 def get_async_session_maker():
