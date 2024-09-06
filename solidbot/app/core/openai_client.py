@@ -1,6 +1,5 @@
 import openai
 from app.config import settings
-from app.utils.openai_utils import match_entities, load_entities, process_and_save_embeddings
 from fastapi import HTTPException
 from app.core.config.logger import logger
 

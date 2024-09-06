@@ -80,3 +80,5 @@ class EmbeddingManager:
     def save_embeddings(self, embeddings, file_path):
         with open(file_path, 'w', encoding='utf-8') as file:
             json.dump(embeddings, file, ensure_ascii=False, indent=4)
+
+embeddingManager = EmbeddingManager()
