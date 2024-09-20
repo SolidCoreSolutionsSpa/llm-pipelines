@@ -10,7 +10,7 @@ class DocumentService:
         try:
             similarity_threshold = 0.8
             query = select(Document, Document.embedding.cosine_distance(query_embedding).label("distance")) \
-                .filter(Document.embedding.cosine_distance(query_embedding) < similarity_threshold) \
+                .filter(Document.embedding.cosine_distance(query_embedding) > similarity_threshold) \
                 .order_by(asc("distance")) \
                 .limit(limit)
             

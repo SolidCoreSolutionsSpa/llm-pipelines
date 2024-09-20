@@ -17,7 +17,7 @@ class Document(Base):
     pregunta_texto: Mapped[str] = mapped_column(Text)
     respuesta_fecha_actualizacion: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     respuesta_texto: Mapped[str] = mapped_column(Text)
-    embedding: Mapped[Optional[Vector]] = mapped_column(Vector(384), nullable=True)
+    embedding: Mapped[Optional[Vector]] = mapped_column(Vector(1024), nullable=True)
 
     tema_links: Mapped[List["TemaLink"]] = relationship(back_populates="document")
     respuesta_links: Mapped[List["RespuestaLink"]] = relationship(back_populates="document")

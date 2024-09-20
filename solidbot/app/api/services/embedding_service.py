@@ -44,7 +44,7 @@ async def process_embeddings():
     async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
     async with async_session() as session:
-        with open('C:\\Users\\japi\\Documents\\git\\sii-scraper\\data\\resultados.json', 'r', encoding='utf-8') as file:
+        with open('C:\\Users\\japi\\Documents\\git\\otros\\sii-scraper\\data\\resultados.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
 
         batch_size = 100
