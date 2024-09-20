@@ -30,7 +30,7 @@ def upgrade() -> None:
     sa.Column('pregunta_texto', sa.Text(), nullable=False),
     sa.Column('respuesta_fecha_actualizacion', sa.String(), nullable=True),
     sa.Column('respuesta_texto', sa.Text(), nullable=False),
-    sa.Column('embedding', Vector(dim=384), nullable=True),
+    sa.Column('embedding', Vector(dim=1024), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('preguntas_relacionadas',
