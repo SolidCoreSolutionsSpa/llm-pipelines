@@ -1,11 +1,11 @@
 import openai
-from app.config import settings
+from app.core.config.settings import settings
 from fastapi import HTTPException
 from app.core.config.logger import logger
 
 class OpenAIClient:
     def __init__(self, entity_type: str):
-        self.api_key = settings.OPENAI_API_KEY
+        self.api_key = settings.Config.OPENAI_API_KEY
         openai.api_key = self.api_key
         self.system_prompt = f"""
                         Eres un experto en {entity_type} que proporciona información detallada en formato JSON.
